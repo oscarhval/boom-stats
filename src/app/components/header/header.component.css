@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'Jersey 25';
+  src: url('/assets/fonts/Jersey25-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter'; 
+  src: url('/assets/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.custom-navbar {
+  background-color: #111;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 74px;
+  margin-right: 30px;
+}
+
+.menu-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-link {
+  color: white !important;
+  font-family: 'Jersey 25', sans-serif;
+  font-size: 24px;
+  margin-right: 30px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: black;
+  border-radius: 20px;
+  padding: 8px 20px;
+  margin-right: 25px;
+  height: 45px;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: white;
+  width: 190px;
+  font-family: 'Jersey 25', sans-serif;
+  font-size: 18px;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(200, 200, 200, 0.85);
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: rgba(200, 200, 200, 0.85);
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.login-btn {
+  font-family: 'Jersey 25', sans-serif;
+  font-size: 18px;
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  color: #FF0000;
+  border-radius: 20px;
+  padding: 10px 30px;
+  border: none;
+}
