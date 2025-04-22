@@ -1,21 +1,18 @@
-// src/app/app.component.ts
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component }    from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SpotifyAuthService } from './services/spotify-auth.service';
+
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports: [CommonModule, RouterOutlet]
+  standalone: true,
+  imports: [ HeaderComponent, RouterOutlet, FooterComponent ],
+  template: `
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  `,
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor(private spotifyAuthService: SpotifyAuthService) {}
-  title = 'boom-stats';
-  // Llama al servicio para iniciar el proceso de autenticación
-  login() {
-    this.spotifyAuthService.login();
-  }
-
-}
+export class AppComponent {}

@@ -1,18 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { HeaderComponent } from "../../components/header/header.component";
-
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-
-
 }
-

@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { SpotifyAuthService } from '../../services/spotify-auth.service';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class HeaderComponent {
+  scrolled = false;
 
-  title = 'Boom Stats';
+  constructor(private spotifyAuth: SpotifyAuthService) {}
 
-  constructor(private spotifyAuthService: SpotifyAuthService) {}
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.scrolled = window.scrollY > 0;
+  }
 
-  login() {
-    this.spotifyAuthService.login();
+  onLogin(): void {
+    this.spotifyAuth.login();
   }
 }

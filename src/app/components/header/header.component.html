@@ -1,24 +1,36 @@
-<nav class="navbar navbar-expand-lg custom-navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="assets/img/logo_boomstats2.png" alt="Logo" class="logo">
+<nav class="header-nav" [class.scrolled]="scrolled">
+  <div class="header-inner">
+    <a routerLink="/" class="header-logo">
+      <img src="assets/img/logo_boomstats2.png" alt="BoomStats">
     </a>
 
-    <div class="menu-container">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#">Estadísticas</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Música</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Conciertos</a></li>
-      </ul>
-    </div>
+    <ul class="header-menu">
+      <li><a routerLink="/stats">Estadísticas</a></li>
+      <li><a routerLink="/music">Música</a></li>
+      <li><a routerLink="/concerts">Conciertos</a></li>
+    </ul>
 
-    <div class="search-container">
-      <input type="text" class="form-control search-input" placeholder="Buscar">
-      <button class="btn search-btn">
-        <i class="bi bi-search"></i>
-      </button>
+    <div class="header-actions">
+      <div class="search-wrap">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar"
+        />
+        <button class="search-btn" aria-label="Buscar">
+          <svg
+            class="search-icon"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <button class="login-btn" (click)="onLogin()">Iniciar sesión</button>
     </div>
-
-    <button class="btn login-btn" (click)="login()">Iniciar sesión</button>
   </div>
 </nav>

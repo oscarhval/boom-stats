@@ -1,0 +1,113 @@
+:host {
+  --bg-transparent: transparent;
+  --bg-solid:       #141414e6;
+  --text-white:     #FFFFFF;
+  --text-grey:      #666666;  
+  --accent-red:     #E50914;
+  --font-main:      'Roboto', sans-serif;
+}
+
+.header-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  background: var(--bg-transparent);
+  transition: background 0.3s ease;
+  z-index: 1000;
+  font-family: var(--font-main);
+}
+.header-nav.scrolled {
+  background: var(--bg-solid);
+}
+
+.header-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  height: 54px;
+}
+
+.header-menu {
+  margin: 0 228px 0 80px;
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+}
+.header-menu a {
+  color: var(--text-white);
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.8s;
+}
+.header-menu a:hover {
+  color: var(--accent-red);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.search-wrap {
+  
+  display: flex;
+  align-items: center;
+  background: #000000;      
+  border-radius: 18px;        
+  height: 48px;
+  padding: 0 16px;
+}
+.search-input {
+
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-grey);
+  font-size: 16px;
+  font-weight: 700;          
+  outline: none;
+}
+.search-input::placeholder {
+  color: var(--text-grey);
+}
+.search-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.search-icon {
+  color: var(--text-grey);
+}
+
+.login-btn {
+  background: #3B0F0F;      
+  color: var(--accent-red);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 18px;
+  padding: 0 24px;
+  height: 48px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.login-btn:hover {
+  color: #3B0F0F;
+  background: var(--accent-red);
+  transition: color 0.8s, background 0.8s;
+}

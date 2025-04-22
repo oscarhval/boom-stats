@@ -1,20 +1,26 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { CallbackComponent } from './pages/callback/callback.component';
-import { HomeComponent } from './pages/home/home.component';
+import type { Routes } from '@angular/router';
+
+import { HomeComponent }            from './pages/home/home.component';
+import { StatsComponent }           from './pages/stats/stats.component';
+import { Stats2Component }          from './pages/stats2/stats2.component';
+import { ProfileComponent }         from './pages/profile/profile.component';
+import { RecommendationsComponent } from './pages/recommendations/recommendations.component';
+import { SettingsComponent }        from './pages/settings/settings.component';
+import { MusicComponent }           from './pages/music/music.component';
+import { ConcertsComponent }        from './pages/concerts/concerts.component';
+import { LoginComponent }           from './pages/login/login.component';
+import { CallbackComponent }        from './pages/callback/callback.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: '**', redirectTo: '' },
-  { path: 'callback', component: CallbackComponent },
+  { path: '',               component: HomeComponent,         pathMatch: 'full' },
+  { path: 'stats',          component: StatsComponent },
+  { path: 'stats2',         component: Stats2Component },
+  { path: 'profile',        component: ProfileComponent },
+  { path: 'recommendations',component: RecommendationsComponent },
+  { path: 'settings',       component: SettingsComponent },
+  { path: 'music',          component: MusicComponent },
+  { path: 'concerts',       component: ConcertsComponent },
+  { path: 'login',          component: LoginComponent },
+  { path: 'callback',       component: CallbackComponent },
+  { path: '**',             redirectTo: '' }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
-
-
-

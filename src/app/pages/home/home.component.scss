@@ -1,0 +1,119 @@
+:host {
+  display: block;
+  --bg-dark:    #111111;
+  --bg-off:     #1E1E1E;
+  --bg-light:   #222222;
+  --text-light: #FFFFFF;
+  --radius:     12px;
+  --gap:        2rem;
+  --font-main:  'Roboto', sans-serif;
+}
+
+.hero {
+  height: 100vh;
+  background: url('/assets/img/hero.png') center/cover no-repeat;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  background: transparent;
+  font-family: var(--font-main);
+}
+
+
+.features {
+  background: var(--bg-dark);
+  padding: calc(var(--gap)*2) 0;
+}
+.features .wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--gap);
+}
+
+
+.highlight-dark,
+.highlight-light {
+  padding: calc(var(--gap)*2) 0;
+}
+.highlight-dark {
+  background: var(--bg-off);
+}
+.highlight-light {
+  background: var(--bg-light);
+}
+.highlight-dark .wrapper,
+.highlight-light .wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--gap);
+}
+
+
+.stats-cards {
+  background: var(--bg-dark);
+  padding: calc(var(--gap)*2) 0;
+}
+.stats-cards .wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--gap);
+}
+
+
+.cta {
+  background: var(--bg-off);
+  padding: calc(var(--gap)*2) 0;
+}
+.cta .wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+
+.feature-card,
+.placeholder,
+.placeholder-box,
+.stat-card,
+.cta-box {
+  border-radius: var(--radius);
+  background: var(--bg-off);
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.feature-card {
+  height: 180px;
+}
+.placeholder-box {
+  height: 140px;
+  background: var(--bg-dark);
+}
+.placeholder {
+  height: 200px;
+}
+.stat-card {
+  height: 140px;
+}
+.cta-box {
+  height: 100px;
+  max-width: 400px;
+  width: 100%;
+  background: var(--bg-dark);
+}
+
+.feature-card:hover,
+.placeholder:hover,
+.placeholder-box:hover,
+.stat-card:hover,
+.cta-box:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.feature-card,
+.stat-card {
+  opacity: 0.9;
+}
