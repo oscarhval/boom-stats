@@ -1,26 +1,47 @@
-<section class="hero"></section>
+<section class="hero">
+
+    <div class="hero-overlay">
+      <div class="hero-content-wrapper">
+        <h1 class="hero-title">
+          <span>Tu playlist,</span><br>
+          <span class="hero-title--faded">tus números,</span><br>
+          <span class="hero-title--strong">tus conciertos.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Entra en una nueva dimensión musical obteniendo información única sobre tus gustos musicales.
+        </p>
+        <a (click)="onLogin()" class="hero-cta-link">Comenzar ›</a>
+      </div>
+    </div>
+  
+  <video
+    #bgvid
+    class="hero-video"
+    muted
+    loop
+    playsinline
+    autoplay
+    preload="auto"
+  >
+    <source src="assets/video/main_video.mp4" type="video/mp4" />
+    Tu navegador no soporta el vídeo.
+  </video>
+</section>
 
 <main class="home-content">
-  <section class="features">
-    <div class="wrapper">
-      <div class="feature-card placeholder"></div>
-      <div class="feature-card placeholder"></div>
-      <div class="feature-card placeholder"></div>
-      <div class="feature-card placeholder"></div>
-    </div>
-  </section>
+
 
   <section class="highlight-dark">
     <div class="wrapper">
-      <div class="highlight-text placeholder-box"></div>
-      <div class="highlight-image placeholder"></div>
+
+
     </div>
   </section>
 
   <section class="highlight-light">
     <div class="wrapper">
-      <div class="highlight-image placeholder"></div>
-      <div class="highlight-text placeholder-box"></div>
+
+      
     </div>
   </section>
 

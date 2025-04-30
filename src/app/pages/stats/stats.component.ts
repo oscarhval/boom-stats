@@ -1,11 +1,274 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  NgZone
+} from '@angular/core';
+import { CommonModule }         from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { forkJoin, of }         from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
+import {
+  Chart,
+  LineController,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+  TooltipItem
+} from 'chart.js';
+import { SpotifyAuthService }   from '../../services/spotify-auth.service';
+
+Chart.register(
+  LineController,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
 @Component({
   selector: 'app-stats',
-  imports: [],
+  standalone: true,
+  imports: [ CommonModule, RouterModule ],
   templateUrl: './stats.component.html',
-  styleUrl: './stats.component.css'
+  styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent {
+export class StatsComponent implements OnInit, AfterViewInit {
+  @ViewChild('genreChart')    genreCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationChart') durationCanvas!: ElementRef<HTMLCanvasElement>;
 
+  loading = true;
+  error   = false;
+
+  user: any         = null;
+  followers         = 0;
+  savedTracksCount  = 0;
+  totalMinutes      = 0;
+  lastDayMinutes    = 0;    // minutos escuchados en las últimas 24 h
+  topTracks: any[]  = [];
+  topArtists: any[] = [];
+  topAlbums: any[]  = [];
+
+  private genreChart?: Chart;
+  private durationChart?: Chart;
+
+  constructor(
+    private auth: SpotifyAuthService,
+    private http: HttpClient,
+    private zone: NgZone,
+  ) {}
+
+  ngOnInit() {
+    const token = this.auth.getAccessToken();
+    if (!token) {
+      this.auth.login();
+      return;
+    }
+
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    // timestamp de hace 24 h
+    const since = Date.now() - 24 * 60 * 60 * 1000;
+
+    forkJoin({
+      profile: this.http.get<any>('https://api.spotify.com/v1/me', { headers }),
+      saved:   this.http.get<any>('https://api.spotify.com/v1/me/tracks?limit=50', { headers }),
+      tracks:  this.http.get<any>(
+                 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50',
+                 { headers }
+               ),
+      artists: this.http.get<any>(
+                 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50',
+                 { headers }
+               ),
+      albums:  this.http.get<any>('https://api.spotify.com/v1/me/albums?limit=50', { headers }),
+      recent:  this.http
+                 .get<{ items: { track: { duration_ms: number } }[] }>(
+                   `https://api.spotify.com/v1/me/player/recently-played?limit=50&after=${since}`,
+                   { headers }
+                 )
+                 .pipe(catchError(() => of({ items: [] })))
+    }).pipe(
+      catchError(() => { this.error = true; return of(null); }),
+      finalize(() => this.loading = false)
+    ).subscribe(res => {
+      if (!res) return;
+
+      // datos de perfil y top 50 all-time
+      this.user = res.profile;
+      this.followers = res.profile.followers.total;
+      this.savedTracksCount = res.saved.total;
+      this.topTracks  = res.tracks.items.filter((t: any) => t.album?.images?.length);
+      this.topArtists = res.artists.items.filter((a: any) => a.images?.length);
+      this.topAlbums  = res.albums.items.map((it: any) => it.album);
+      this.totalMinutes =
+        this.topTracks.reduce((sum, t) => sum + t.duration_ms, 0) / 60000;
+
+      // nuevos minutos últimas 24 h
+      const totalMs24h = res.recent.items
+        .reduce((sum, it) => sum + it.track.duration_ms, 0);
+      this.lastDayMinutes = totalMs24h / 60000;
+
+      // generar gráficos fuera de Angular
+      this.zone.runOutsideAngular(() => {
+        setTimeout(() => {
+          this.buildGenreChart();
+          this.buildDurationChart();
+        });
+      });
+    });
+  }
+
+  ngAfterViewInit() {}
+
+  private buildGenreChart() {
+    const counts: Record<string, number> = {};
+    this.topArtists.forEach(a =>
+      (a.genres as string[]).forEach(g => counts[g] = (counts[g] || 0) + 1)
+    );
+    const labels = Object.keys(counts).slice(0, 5);
+    const data   = labels.map(l => counts[l]);
+
+    const ctx = this.genreCanvas.nativeElement.getContext('2d')!;
+    // degradado vertical (arriba a abajo)
+    const grad = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+    grad.addColorStop(0, 'rgba(229,9,20,0.9)');
+    grad.addColorStop(1, 'rgba(20,20,20,0.5)');
+
+    this.genreChart?.destroy();
+    this.genreChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Veces escuchado',
+          data,
+          tension: 0.4,
+          fill: true,
+          backgroundColor: grad,
+          borderColor: 'rgba(229,9,20,1)',
+          borderWidth: 3,
+          pointRadius: 5,
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 2,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(229,9,20,1)'
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        hover:       { mode: 'nearest', intersect: true },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a1a1a',
+            titleColor: '#fff',
+            bodyColor: '#eee',
+            padding: 10,
+            cornerRadius: 6,
+            displayColors: false,
+            callbacks: {
+              title: items => `Género: ${items[0].label}`,
+              label: item  => `Veces: ${item.parsed.y}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#ccc', font: { size: 12 } }
+          },
+          y: {
+            beginAtZero: true,
+            grace: '10%',
+            grid: { color: 'rgba(255,255,255,0.08)' },
+            ticks: { color: '#ccc', stepSize: 1 }
+          }
+        }
+      }
+    });
+  }
+
+  private buildDurationChart() {
+    const buckets: Record<number, number> = {};
+    this.topTracks.forEach(t => {
+      const secs = t.duration_ms / 1000;
+      const key  = Math.floor(secs / 30) * 30;
+      buckets[key] = (buckets[key] || 0) + 1;
+    });
+    const sorted = Object.keys(buckets).map(Number).sort((a, b) => a - b);
+    const labels = sorted.map(s => `${(s / 60).toFixed(1)} min`);
+    const data   = sorted.map(s => buckets[s]);
+
+    const ctx = this.durationCanvas.nativeElement.getContext('2d')!;
+    // degradado vertical (arriba a abajo)
+    const grad = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+    grad.addColorStop(0, 'rgba(229,9,20,0.9)');
+    grad.addColorStop(1, 'rgba(20,20,20,0.5)');
+
+    this.durationChart?.destroy();
+    this.durationChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Número de pistas',
+          data,
+          tension: 0.35,
+          fill: true,
+          backgroundColor: grad,
+          borderColor: 'rgba(229,9,20,1)',
+          borderWidth: 3,
+          pointRadius: 0,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(229,9,20,1)'
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        hover:       { mode: 'nearest', intersect: true },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a1a1a',
+            titleColor: '#fff',
+            bodyColor: '#eee',
+            padding: 10,
+            cornerRadius: 6,
+            displayColors: false,
+            callbacks: {
+              title: items => `Duración: ${items[0].label}`,
+              label: item  => `Pistas: ${item.parsed.y}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#ccc', maxRotation: 0, font: { size: 11 } }
+          },
+          y: {
+            beginAtZero: true,
+            grid: { color: 'rgba(255,255,255,0.08)' },
+            ticks: { color: '#ccc' }
+          }
+        }
+      }
+    });
+  }
 }

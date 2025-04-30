@@ -8,11 +8,12 @@ import { RecommendationsComponent } from './pages/recommendations/recommendation
 import { SettingsComponent }        from './pages/settings/settings.component';
 import { MusicComponent }           from './pages/music/music.component';
 import { ConcertsComponent }        from './pages/concerts/concerts.component';
-import { LoginComponent }           from './pages/login/login.component';
 import { CallbackComponent }        from './pages/callback/callback.component';
 
 export const routes: Routes = [
   { path: '',               component: HomeComponent,         pathMatch: 'full' },
+  { path: 'callback',       component: CallbackComponent },
+
   { path: 'stats',          component: StatsComponent },
   { path: 'stats2',         component: Stats2Component },
   { path: 'profile',        component: ProfileComponent },
@@ -20,7 +21,6 @@ export const routes: Routes = [
   { path: 'settings',       component: SettingsComponent },
   { path: 'music',          component: MusicComponent },
   { path: 'concerts',       component: ConcertsComponent },
-  { path: 'login',          component: LoginComponent },
-  { path: 'callback',       component: CallbackComponent },
+
   { path: '**',             redirectTo: '' }
 ];

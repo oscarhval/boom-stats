@@ -1,20 +1,25 @@
-import { Component, HostListener, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { SpotifyAuthService } from '../../services/spotify-auth.service';
+import { Component, HostListener } from '@angular/core';
+import { CommonModule }            from '@angular/common';
+import { RouterModule }    from '@angular/router';
+import { SpotifyAuthService }      from '../../services/spotify-auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   scrolled = false;
+  menuOpen = false;
+  user$;
 
-  constructor(private spotifyAuth: SpotifyAuthService) {}
+  constructor(
+    private spotifyAuth: SpotifyAuthService,
+  ) {
+    this.user$ = this.spotifyAuth.user$;
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
@@ -23,5 +28,9 @@ export class HeaderComponent {
 
   onLogin(): void {
     this.spotifyAuth.login();
+  }
+
+  onLogout(): void {
+    this.spotifyAuth.logout();
   }
 }

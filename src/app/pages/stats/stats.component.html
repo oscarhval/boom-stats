@@ -1,1 +1,89 @@
-<p>stats works!</p>
+<div *ngIf="loading" class="status">Cargando estadísticas…</div>
+<div *ngIf="error"   class="status error">Error al obtener datos.</div>
+
+<section *ngIf="!loading && !error" class="stats-page">
+  <div class="profile-header">
+    <img *ngIf="user?.images?.length" class="avatar" [src]="user.images[0].url" alt="Avatar">
+    <h1>Bienvenido, {{ user.display_name }}</h1>
+  </div>
+
+  <div class="numbers-grid">
+    <div class="number-card">
+      <span class="label">Seguidores</span>
+      <span class="value">{{ followers }}</span>
+    </div>
+    <div class="number-card">
+      <span class="label">Pistas guardadas</span>
+      <span class="value">{{ savedTracksCount }}</span>
+    </div>
+    <div class="number-card">
+      <span class="label">Minutos últimas 24 h</span>
+      <span class="value">{{ lastDayMinutes | number:'1.0-0' }}</span>
+    </div>
+  </div>
+
+  <section class="charts-section">
+    <div class="charts-grid">
+      <figure class="chart-card">
+        <figcaption class="chart-title">
+          Géneros más escuchados
+          <small>(top 50)</small>
+        </figcaption>
+        <div class="chart-container">
+          <canvas #genreChart></canvas>
+        </div>
+      </figure>
+  
+      <figure class="chart-card">
+        <figcaption class="chart-title">
+          Duración de tus canciones
+          <small>(top 50)</small>
+        </figcaption>
+        <div class="chart-container">
+          <canvas #durationChart></canvas>
+        </div>
+      </figure>
+    </div>
+  </section>
+  
+
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Canciones más escuchadas</h2>
+      <a routerLink="/stats2">Ver más →</a>
+    </div>
+    <div class="items-grid">
+      <div *ngFor="let t of topTracks | slice:0:10" class="track-item">
+        <img [src]="t.album.images[0]?.url" alt="{{t.name}}">
+        <small>{{t.name}}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Artistas más escuchados</h2>
+      <a routerLink="/stats2">Ver más →</a>
+    </div>
+    <div class="items-grid">
+      <div *ngFor="let a of topArtists| slice:0:10"  class="track-item">
+      <img [src]="a.images[0]?.url" alt="{{a.name}}">
+      <small>{{a.name}}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Álbums más escuchados</h2>
+      <a routerLink="/stats2">Ver más →</a>
+    </div>
+    <div class="items-grid">
+      <div *ngFor="let al of topAlbums| slice:0:10" class="track-item">
+      <img [src]="al.images[0]?.url" alt="{{al.name}}">
+      <small>{{al.name}}</small>
+      </div>
+    </div>
+  </div>
+</section>

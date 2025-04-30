@@ -30,7 +30,33 @@
           </svg>
         </button>
       </div>
-      <button class="login-btn" (click)="onLogin()">Iniciar sesión</button>
+
+      <button
+        *ngIf="!(user$ | async)"
+        class="login-btn"
+        (click)="onLogin()"
+ 
+      >
+
+        Iniciar sesión
+      </button>
+
+
+      
+      <div
+        *ngIf="user$ | async as user"
+        class="user-menu"
+        (click)="menuOpen = !menuOpen"
+      >
+        <img
+          class="user-avatar"
+          [src]="user.images[0]?.url"
+          alt="Avatar {{ user.display_name }}"
+        >
+        <ul class="dropdown" [class.open]="menuOpen">
+          <li (click)="onLogout()">Cerrar sesión</li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
