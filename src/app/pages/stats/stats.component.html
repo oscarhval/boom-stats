@@ -1,5 +1,16 @@
-<div *ngIf="loading" class="status">Cargando estadísticas…</div>
-<div *ngIf="error"   class="status error">Error al obtener datos.</div>
+<ng-container *ngIf="loading || error">
+  <div class="overlay" [class.error]="error">
+    <div class="message">
+      <ng-container *ngIf="!error; else showError">
+        <div class="spinner"></div>
+      </ng-container>
+      <ng-template #showError>
+        <div class="error-icon">✖</div>
+      </ng-template>
+      <p> {{ error ? 'Error al obtener datos.' : 'Cargando estadísticas…' }} </p>
+    </div>
+  </div>
+</ng-container>
 
 <section *ngIf="!loading && !error" class="stats-page">
   <div class="profile-header">
@@ -33,7 +44,7 @@
           <canvas #genreChart></canvas>
         </div>
       </figure>
-  
+
       <figure class="chart-card">
         <figcaption class="chart-title">
           Duración de tus canciones
@@ -45,13 +56,11 @@
       </figure>
     </div>
   </section>
-  
-
 
   <div class="section">
     <div class="section-header">
       <h2>Canciones más escuchadas</h2>
-      <a routerLink="/stats2">Ver más →</a>
+      <a routerLink="/stats2">Ver más ➜</a>
     </div>
     <div class="items-grid">
       <div *ngFor="let t of topTracks | slice:0:10" class="track-item">
@@ -64,12 +73,11 @@
   <div class="section">
     <div class="section-header">
       <h2>Artistas más escuchados</h2>
-      <a routerLink="/stats2">Ver más →</a>
     </div>
     <div class="items-grid">
-      <div *ngFor="let a of topArtists| slice:0:10"  class="track-item">
-      <img [src]="a.images[0]?.url" alt="{{a.name}}">
-      <small>{{a.name}}</small>
+      <div *ngFor="let a of topArtists | slice:0:10" class="track-item">
+        <img [src]="a.images[0]?.url" alt="{{a.name}}">
+        <small>{{a.name}}</small>
       </div>
     </div>
   </div>
@@ -77,12 +85,11 @@
   <div class="section">
     <div class="section-header">
       <h2>Álbums más escuchados</h2>
-      <a routerLink="/stats2">Ver más →</a>
     </div>
     <div class="items-grid">
-      <div *ngFor="let al of topAlbums| slice:0:10" class="track-item">
-      <img [src]="al.images[0]?.url" alt="{{al.name}}">
-      <small>{{al.name}}</small>
+      <div *ngFor="let al of topAlbums | slice:0:10" class="track-item">
+        <img [src]="al.images[0]?.url" alt="{{al.name}}">
+        <small>{{al.name}}</small>
       </div>
     </div>
   </div>

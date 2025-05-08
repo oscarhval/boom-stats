@@ -1,1 +1,51 @@
-<p>stats2 works!</p>
+<ng-container *ngIf="loading || error">
+  <div class="overlay" [class.error]="error">
+    <div class="message">
+      <ng-container *ngIf="!error; else showError2">
+        <div class="spinner"></div>
+      </ng-container>
+      <ng-template #showError2>
+        <div class="error-icon">✖</div>
+      </ng-template>
+      <p> {{ error ? 'Error al obtener datos.' : 'Cargando estadísticas…' }} </p>
+    </div>
+  </div>
+</ng-container>
+
+<section class="stats2" *ngIf="!loading && !error">
+  <nav class="tabs">
+    <button
+      *ngFor="let cat of categories"
+      [class.active]="selectedCategory === cat.value"
+      (click)="onCategoryChange(cat.value)">
+      {{ cat.label }}
+    </button>
+  </nav>
+
+  <div
+    class="grid"
+    [style.grid-template-columns]="'repeat(' + columns + ', minmax(100px,1fr))'"
+  >
+    <ng-container *ngFor="let item of items; let i = index">
+      <div class="item-card" *ngIf="!item.placeholder; else empty">
+        <img [src]="getImageUrl(item)" alt="{{ item.name }}" />
+        <div class="item-label">
+          <span class="item-index">{{ i + 1 }}.</span>
+          <small title="{{ item.name }}">{{ item.name }}</small>
+        </div>
+      </div>
+      <ng-template #empty>
+        <div class="item-placeholder"></div>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <nav class="ranges">
+    <button
+      *ngFor="let r of timeRanges"
+      [class.active]="selectedRange === r.value"
+      (click)="onRangeChange(r.value)">
+      {{ r.label }}
+    </button>
+  </nav>
+</section>

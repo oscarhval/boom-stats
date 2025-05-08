@@ -6,9 +6,64 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+.overlay.error {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transform: translateY(-10px);
+  animation: slideUp 0.3s forwards;
+
+  p {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+.spinner {
+  width: 50px; height: 50px;
+  border: 5px solid rgba(255,255,255,0.2);
+  border-top-color: #E50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error-icon {
+  font-size: 3rem;
+  color: #E50914;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 .status {
   padding: 2rem;
   text-align: center;
+
   &.error {
     color: #E50914;
   }
@@ -102,7 +157,6 @@
     }
 
     .chart-container {
-
       background: #222;
       border-radius: 6px;
       padding: 0.5rem;
@@ -125,7 +179,6 @@
     align-items: center;
 
     h2 {
-      
       font-weight: 600;
       margin: 0;
       font-size: 1.3rem;
@@ -135,6 +188,7 @@
       color: #aaa;
       text-decoration: none;
       font-size: 0.95rem;
+      font-weight: 600;
 
       &:hover {
         color: #E50914;
@@ -142,12 +196,12 @@
     }
   }
 
-
   .items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 1rem;
     margin-top: 2rem;
+    margin-bottom: 2.4rem;
 
     img {
       width: 100%;
@@ -162,28 +216,24 @@
     }
   }
 
-  // debajo de tu .items-grid …
-.track-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  img {
-    margin-bottom: 0.5rem;
+  .track-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      margin-bottom: 0.5rem;
+    }
+
+    small {
+      color: #aaa;
+      font-weight: bold;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      width: 100%;
+    }
   }
-
-  small {
-    color: #aaa;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;       // una sola línea
-    overflow: hidden;          // oculta lo que sobrepasa
-    text-overflow: ellipsis;   // muestra “…”
-    display: block;
-    width: 100%;
-  }
-}
-
-
-  
 }

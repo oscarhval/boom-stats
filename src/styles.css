@@ -1,6 +1,24 @@
 * {
     box-sizing: border-box;
   }
+
+  html, body {
+    background: #111;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  app-root {
+    display: block;
+    min-height: 100vh;
+    background: #111;
+  }
+
+  body.no-footer app-footer,
+  body.no-footer footer {
+  display: none !important;
+}
   
   a {
     text-decoration: none;
@@ -11,3 +29,4 @@
     cursor: pointer;
   }
   
+

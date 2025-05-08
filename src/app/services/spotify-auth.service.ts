@@ -1,4 +1,3 @@
-// src/app/services/spotify-auth.service.ts
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
@@ -17,7 +16,6 @@ export class SpotifyAuthService {
   constructor(private router: Router, private http: HttpClient) {
     const token = this.getAccessToken();
     if (token) {
-      // precargar perfil si ya hay token
       this.fetchUserProfile(token)
         .pipe(catchError(() => of(null)))
         .subscribe();
@@ -34,7 +32,7 @@ export class SpotifyAuthService {
       'user-read-email',
       'user-top-read',
       'user-library-read',
-      'user-read-recently-played'   // nuevo scope para historial reciente
+      'user-read-recently-played'   
     ].join(' ');
 
     const url =
