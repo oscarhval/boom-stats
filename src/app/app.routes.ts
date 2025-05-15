@@ -6,7 +6,6 @@ import { Stats2Component }          from './pages/stats2/stats2.component';
 import { ProfileComponent }         from './pages/profile/profile.component';
 import { RecommendationsComponent } from './pages/recommendations/recommendations.component';
 import { SettingsComponent }        from './pages/settings/settings.component';
-import { MusicComponent }           from './pages/music/music.component';
 import { ConcertsComponent }        from './pages/concerts/concerts.component';
 import { CallbackComponent }        from './pages/callback/callback.component';
 
@@ -19,8 +18,6 @@ export const routes: Routes = [
   { path: 'profile',        component: ProfileComponent },
   { path: 'recommendations',component: RecommendationsComponent },
   { path: 'settings',       component: SettingsComponent },
-  { path: 'music',          component: MusicComponent },
   { path: 'concerts',       component: ConcertsComponent },
-
   { path: '**',             redirectTo: '' }
 ];

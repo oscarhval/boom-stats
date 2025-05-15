@@ -15,8 +15,8 @@
     background: #111;
   }
 
-  body.no-footer app-footer,
-  body.no-footer footer {
+body.no-footer app-footer,
+body.no-footer footer {
   display: none !important;
 }
   

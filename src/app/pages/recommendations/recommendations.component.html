@@ -1,1 +1,21 @@
-<p>recommendations works!</p>
+<section class="recommendations-page">
+  <div class="chat-container">
+    <div #scrollContainer class="messages">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.from">
+        <div class="bubble">{{ msg.text }}</div>
+      </div>
+      <div *ngIf="loading" class="message bot loading">
+        <div class="bubble"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input
+        [(ngModel)]="userInput"
+        (keyup.enter)="sendUserText()"
+        placeholder="Escribe tu mensaje..."
+      />
+      <button (click)="sendUserText()">Enviar</button>
+    </div>
+  </div>
+</section>

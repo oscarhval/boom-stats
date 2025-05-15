@@ -1,23 +1,24 @@
 :host {
   display: block;
-  padding: 8rem 8rem 4rem;
+  --side-gap: 2rem;
   background: #111;
   color: #fff;
   font-family: 'Roboto', sans-serif;
 }
 
+.stats2{
+  padding: 8rem 8rem 4rem
+}
 .overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0, 0, 0, 0.85);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10000;
   opacity: 0;
   animation: fadeIn 0.3s forwards;
-}
-
-.overlay.error {
-  background: rgba(0, 0, 0, 0.85);
 }
 
 .message {
@@ -37,35 +38,61 @@
 }
 
 .spinner {
-  width: 50px; height: 50px;
+  width: 50px;
+  height: 50px;
   border: 5px solid rgba(255,255,255,0.2);
   border-top-color: #E50914;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-.error-icon {
-  font-size: 3rem;
-  color: #E50914;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-}
+@keyframes spin { to { transform: rotate(360deg); } 
+  }
+@keyframes fadeIn { to { opacity: 1; }
+  }
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } 
+  }
 
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes fadeIn { to { opacity: 1; } }
-@keyframes slideUp {
-  to { opacity: 1; transform: translateY(0); }
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  color: #666;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  padding: 0 1rem;
 }
 
 .stats2 {
+  .section-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 1rem;      
+      font-weight: 300;
+      margin: 0.5rem 0 0;   
+      color: #666;
+    }
+  }
+
   .tabs,
   .ranges {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 3rem;
 
     button {
       background: none;
@@ -78,6 +105,7 @@
 
       &.active {
         color: #fff;
+
         &::after {
           content: '';
           border-radius: 20px;
@@ -107,13 +135,24 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      cursor: pointer;
 
-      img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 6px;
-        background: #222;
+      .thumb-wrapper {
+        position: relative;
+        overflow: visible;
+
+        img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 6px;
+          background: #222;
+          transition: transform 0.2s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.05);
+        }
       }
 
       .item-label {
@@ -149,4 +188,53 @@
       margin-bottom: 1.25rem;
     }
   }
+.hover-info {
+  margin-bottom: 5px;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(18px);
+  background: rgba(0, 0, 0, 1);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 0.15s forwards;
+  display: flex;            
+  align-items: center;     
+  justify-content: center;
+
+  p, span {
+    margin: 0;           
+    padding: 0;
+  }
+}
+
+
+  .section-legend {
+    margin: 3.2rem 0 0 0;         
+    max-width: 600px;
+    margin-left: 0;
+    color: #666;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    text-align: left;
+
+    p {
+      list-style: none;
+      margin: 0.25rem 0;
+    }
+  }
+}
+
+@keyframes spin   { to { transform: rotate(360deg); } }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
 }

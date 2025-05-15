@@ -1,14 +1,15 @@
-<ng-container *ngIf="loading || error">
-  <div class="overlay" [class.error]="error">
-    <div class="message">
-      <ng-container *ngIf="!error; else showError">
-        <div class="spinner"></div>
-      </ng-container>
-      <ng-template #showError>
-        <div class="error-icon">✖</div>
-      </ng-template>
-      <p> {{ error ? 'Error al obtener datos.' : 'Cargando estadísticas…' }} </p>
+<ng-container *ngIf="loading">
+  <div class="overlay overlay-loading">
+    <div class="message message-loading">
+      <div class="spinner"></div>
+      <p>Cargando estadísticas…</p>
     </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="error">
+  <div class="error-container">
+    <p>Error al cargar datos.</p>
   </div>
 </ng-container>
 
@@ -36,25 +37,24 @@
   <section class="charts-section">
     <div class="charts-grid">
       <figure class="chart-card">
-        <figcaption class="chart-title">
-          Géneros más escuchados
-          <small>(top 50)</small>
-        </figcaption>
-        <div class="chart-container">
-          <canvas #genreChart></canvas>
-        </div>
+        <figcaption class="chart-title">Géneros más escuchados</figcaption>
+        <div class="chart-container"><canvas #genreChart></canvas></div>
       </figure>
-
       <figure class="chart-card">
-        <figcaption class="chart-title">
-          Duración de tus canciones
-          <small>(top 50)</small>
-        </figcaption>
-        <div class="chart-container">
-          <canvas #durationChart></canvas>
-        </div>
+        <figcaption class="chart-title">Duración de tus canciones</figcaption>
+        <div class="chart-container"><canvas #durationChart></canvas></div>
+      </figure>
+      <figure class="chart-card">
+        <figcaption class="chart-title">Popularidad de tus canciones</figcaption>
+        <div class="chart-container"><canvas #popularityChart></canvas></div>
+      </figure>
+      <figure class="chart-card">
+        <figcaption class="chart-title">Décadas de lanzamiento</figcaption>
+        <div class="chart-container"><canvas #yearChart></canvas></div>
       </figure>
     </div>
+
+
   </section>
 
   <div class="section">
@@ -64,33 +64,37 @@
     </div>
     <div class="items-grid">
       <div *ngFor="let t of topTracks | slice:0:10" class="track-item">
-        <img [src]="t.album.images[0]?.url" alt="{{t.name}}">
-        <small>{{t.name}}</small>
+        <img [src]="t.album.images[0]?.url" alt="{{ t.name }}">
+        <small>{{ t.name }}</small>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-header">
-      <h2>Artistas más escuchados</h2>
-    </div>
+    <div class="section-header"><h2>Artistas más escuchados</h2></div>
     <div class="items-grid">
       <div *ngFor="let a of topArtists | slice:0:10" class="track-item">
-        <img [src]="a.images[0]?.url" alt="{{a.name}}">
-        <small>{{a.name}}</small>
+        <img [src]="a.images[0]?.url" alt="{{ a.name }}">
+        <small>{{ a.name }}</small>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-header">
-      <h2>Álbums más escuchados</h2>
-    </div>
+    <div class="section-header"><h2>Álbumes más escuchados</h2></div>
     <div class="items-grid">
       <div *ngFor="let al of topAlbums | slice:0:10" class="track-item">
-        <img [src]="al.images[0]?.url" alt="{{al.name}}">
-        <small>{{al.name}}</small>
+        <img [src]="al.images[0]?.url" alt="{{ al.name }}">
+        <small>{{ al.name }}</small>
       </div>
     </div>
   </div>
+
+
+      <div class="section-legend">
+      <p><strong>Géneros más escuchados:</strong> muestra los 5 géneros principales según tu top 50 de artistas.</p>
+      <p><strong>Duración de tus canciones:</strong> distribución en intervalos de 30 s de la duración de tus 50 pistas más escuchadas.</p>
+      <p><strong>Popularidad de tus canciones:</strong> número de pistas en rangos de popularidad (0–100) para tu top 50.</p>
+      <p><strong>Décadas de lanzamiento:</strong> cuántas de tus 50 canciones más escuchadas fueron lanzadas en cada década.</p>
+    </div>
 </section>

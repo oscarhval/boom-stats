@@ -22,10 +22,7 @@ export class SpotifyAuthService {
     }
   }
 
-  /**
-   * Inicia el flujo de login de Spotify,
-   * forzando selector de cuenta y guardando la ruta de retorno en state.
-   */
+ 
   login(redirectPath: string = '/'): void {
     const scopes = [
       'user-read-private',
@@ -44,18 +41,13 @@ export class SpotifyAuthService {
       `&show_dialog=true` +
       `&state=${encodeURIComponent(redirectPath)}`;
 
-    // Limpiar token previo
     localStorage.removeItem('spotifyAccessToken');
     this.userSubject.next(null);
 
     window.location.href = url;
   }
 
-  /**
-   * Maneja la respuesta de Spotify tras el login,
-   * extrae access_token y state, guarda token,
-   * precarga perfil y navega a la ruta original.
-   */
+ 
   handleAuthentication(): void {
     const hash = window.location.hash;
     if (!hash) return;
@@ -66,20 +58,16 @@ export class SpotifyAuthService {
 
     if (!token) return;
 
-    // 1) Guardar token
     localStorage.setItem('spotifyAccessToken', token);
     this.userSubject.next(null);
 
-    // 2) Precargar perfil antes de navegar
     this.fetchUserProfile(token)
       .pipe(catchError(() => of(null)))
       .subscribe(() => {
-        // 3) Navegar a la ruta solicitada
         this.router.navigate([decodeURIComponent(state)]);
       });
   }
 
-  /** Llama a GET /v1/me para obtener el perfil y actualizar userSubject */
   private fetchUserProfile(token: string) {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     return this.http
@@ -87,12 +75,10 @@ export class SpotifyAuthService {
       .pipe(tap(profile => this.userSubject.next(profile)));
   }
 
-  /** Devuelve el access_token almacenado o null */
   getAccessToken(): string | null {
     return localStorage.getItem('spotifyAccessToken');
   }
 
-  /** Cierra sesión y vuelve a home */
   logout(): void {
     localStorage.removeItem('spotifyAccessToken');
     this.userSubject.next(null);

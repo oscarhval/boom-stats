@@ -15,4 +15,6 @@ import { FooterComponent } from './components/footer/footer.component';
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  public title = 'boom-stats';
+}

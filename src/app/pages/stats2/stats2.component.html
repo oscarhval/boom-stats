@@ -1,18 +1,27 @@
-<ng-container *ngIf="loading || error">
-  <div class="overlay" [class.error]="error">
-    <div class="message">
-      <ng-container *ngIf="!error; else showError2">
-        <div class="spinner"></div>
-      </ng-container>
-      <ng-template #showError2>
-        <div class="error-icon">✖</div>
-      </ng-template>
-      <p> {{ error ? 'Error al obtener datos.' : 'Cargando estadísticas…' }} </p>
+<ng-container *ngIf="loading">
+  <div class="overlay overlay-loading">
+    <div class="message message-loading">
+      <div class="spinner"></div>
+      <p>Cargando datos…</p>
     </div>
   </div>
 </ng-container>
 
+<ng-container *ngIf="error">
+  <div class="error-container">
+    <p>Error al cargar datos.</p>
+  </div>
+</ng-container>
+
 <section class="stats2" *ngIf="!loading && !error">
+<div class="section-header">
+  <h1>Top</h1>
+  <h2>
+    {{ selectedRange === 'short_term' ? 'último mes' : selectedRange === 'medium_term' ? 'últimos seis meses' : 'último año' }}
+  </h2>
+</div>
+
+
   <nav class="tabs">
     <button
       *ngFor="let cat of categories"
@@ -28,7 +37,16 @@
   >
     <ng-container *ngFor="let item of items; let i = index">
       <div class="item-card" *ngIf="!item.placeholder; else empty">
-        <img [src]="getImageUrl(item)" alt="{{ item.name }}" />
+        <div
+          class="thumb-wrapper"
+          (mouseenter)="hoverIndex = i"
+          (mouseleave)="hoverIndex = null"
+        >
+          <img [src]="getImageUrl(item)" alt="{{ item.name }}" />
+          <div class="hover-info" *ngIf="hoverIndex === i">
+            <p>{{ getHoverInfo(item) }}</p>
+          </div>
+        </div>
         <div class="item-label">
           <span class="item-index">{{ i + 1 }}.</span>
           <small title="{{ item.name }}">{{ item.name }}</small>
@@ -48,4 +66,10 @@
       {{ r.label }}
     </button>
   </nav>
-</section>
+
+<div class="section-legend">
+  <p><strong>Popularidad</strong>: puntuación 0–100 basada en reproducciones recientes</p>
+  <p><strong>Seguidores</strong>: total de seguidores del perfil del artista</p>
+  <p><strong>Álbumes</strong>: fecha de lanzamiento y número de pistas por álbum</p>
+</div>
+
