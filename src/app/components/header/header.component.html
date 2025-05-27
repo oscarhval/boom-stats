@@ -55,7 +55,8 @@
           alt="Avatar {{ user.display_name }}"
         >
         <ul class="dropdown" [class.open]="menuOpen">
-          <li (click)="onLogout()">Cerrar sesión</li>
+<li (click)="onSettings()">Configuración</li>
+            <li (click)="onLogout()">Cerrar sesión</li>
         </ul>
       </div>
     </div>

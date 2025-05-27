@@ -1,17 +1,30 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { bootstrapApplication }               from '@angular/platform-browser';
-import { provideRouter }                      from '@angular/router';
-import { AppComponent }                       from './app/app.component';
-import { routes }                             from './app/app.routes';
-import { HttpClientModule } from '@angular/common/http';
+// main.ts
+import { bootstrapApplication }        from '@angular/platform-browser';
+import { importProvidersFrom }         from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader }            from '@ngx-translate/http-loader';
+import { AppComponent }                   from './app/app.component';
+import { routes }                         from './app/app.routes';
+import { provideRouter }                  from '@angular/router';
 
-if (false) {
-  enableProdMode();
+// loader para cargar /assets/i18n/*.json
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(HttpClientModule)
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: createTranslateLoader,
+          deps: [HttpClient]
+        }
+      })
+    )
   ]
 }).catch(err => console.error(err));

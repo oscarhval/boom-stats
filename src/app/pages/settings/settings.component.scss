@@ -1,0 +1,167 @@
+.settings-page {
+  width: 100%;
+  margin: 0;
+  padding: 8rem 8rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: #fff;
+
+  .page-title {
+    
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+       .text-input,
+        select {
+          min-width: 140px;
+          padding: 0.5rem;
+          background: rgba(30,30,30,1);
+          border: 1px solid rgba(255,255,255,0.3);
+          border-radius: 4px;
+          color: #fff;
+          font-size: 1rem;
+          outline: none;
+        }
+
+
+  .card {
+    color: rgba(255,255,255,0.75);
+    background: rgba(10,10,10,0.9);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(20,20,20,0.7);
+      color: #fff;
+
+      &:hover {
+        background: rgba(255,255,255,0.1);
+        border-color: rgba(255,255,255,0.5);
+      }
+    
+    }
+
+    & + .card {
+      margin-top: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      color: #fff;
+    }
+
+    .setting-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(255,255,255,0.2);
+
+      &:first-of-type {
+        border-top: none;
+      }
+
+      .setting-info {
+
+        display: flex;
+        
+        align-items: center;
+        gap: 1rem;
+      
+        .subtle-text, .subtle {
+          margin: 0;
+          color: rgba(255,255,255,0.75);
+          line-height: 1.4;
+        }
+      }
+
+      .setting-action {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+   
+        input[type="file"] {
+        color: transparent;  
+        margin: 0;
+        padding: 0;
+      }
+
+        input[type="file"]::-webkit-file-upload-button {
+          cursor: pointer;
+          padding: 0.5rem 0.75rem;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.3);
+          background: rgba(20,20,20,0.9);
+          color: #fff;
+          font-size: 1rem;
+          transition: background 0.2s;
+
+          &:hover {
+            background: rgba(255,255,255,0.1);
+          }
+        }
+
+        .photo-preview {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .switch {
+          position: relative;
+          width: 40px;
+          height: 20px;
+
+          input {
+            opacity: 0; width: 0; height: 0;
+            &:checked + .slider { background: red; }
+            &:checked + .slider::before { transform: translateX(20px); }
+          }
+
+          .slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: background 0.3s;
+
+            &::before {
+              content: "";
+              position: absolute;
+              width: 16px; height: 16px;
+              left: 2px; top: 2px;
+              background: #fff;
+              border-radius: 50%;
+              transition: transform 0.3s;
+            }
+          }
+        }
+      }
+    }
+  }
+}

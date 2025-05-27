@@ -1,21 +1,53 @@
-<section class="recommendations-page">
-  <div class="chat-container">
-    <div #scrollContainer class="messages">
-      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.from">
-        <div class="bubble">{{ msg.text }}</div>
-      </div>
-      <div *ngIf="loading" class="message bot loading">
-        <div class="bubble"><div class="spinner"></div></div>
-      </div>
-    </div>
-
-    <div class="input-area">
-      <input
-        [(ngModel)]="userInput"
-        (keyup.enter)="sendUserText()"
-        placeholder="Escribe tu mensaje..."
-      />
-      <button (click)="sendUserText()">Enviar</button>
+<ng-container *ngIf="loading">
+  <div class="overlay overlay-loading">
+    <div class="message message-loading">
+      <div class="spinner"></div>
+      <p>Cargando datos…</p>
     </div>
   </div>
+</ng-container>
+
+<ng-container *ngIf="error">
+  <div class="error-container">
+    <p>Error al cargar datos.</p>
+  </div>
+</ng-container>
+
+<section class="recommendations" *ngIf="!loading && !error">
+  <div class="page-header">
+    <h1>Música</h1>
+    <small class="subtitle">Explora nueva música</small>
+  </div>
+
+  <section class="grid">
+    <ng-container *ngFor="let g of genres; let i = index">
+      <a
+        [routerLink]="['/recommendations', g.name]"
+        class="card"
+        [ngClass]="{ large: i === 0 || i === 6 }"
+        [style.backgroundImage]="'url(' + g.image + ')'"
+      >
+        <div class="overlay"></div>
+        <h2 *ngIf="i === 0 || i === 6">{{ g.name | titlecase }}</h2>
+        <h2 *ngIf="i !== 0 && i !== 6">{{ g.name | titlecase }}</h2>
+      </a>
+    </ng-container>
+  </section>
+
+    <div class="favorites">
+    <h2>Tus géneros favoritos</h2>
+    <div class="fav-grid">
+      <ng-container *ngFor="let g of favoriteGenres">
+        <a
+          [routerLink]="['/recommendations', g.name]"
+          class="fav-card"
+          [style.backgroundImage]="'url(' + g.image + ')'"
+        >
+          <div class="overlay"></div>
+          <h3>{{ g.name | titlecase }}</h3>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+
 </section>

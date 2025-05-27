@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { SpotifyAuthService } from '../../services/spotify-auth.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { SpotifyAuthService } from '../../services/spotify-auth.service';
   styleUrls: ['./callback.component.scss']
 })
 export class CallbackComponent implements OnInit, OnDestroy {
-  constructor(private spotifyAuthService: SpotifyAuthService) {}
+  constructor(@Inject(SpotifyAuthService) private spotifyAuthService: SpotifyAuthService) {}
 
   ngOnInit(): void {
     document.body.classList.add('no-footer');

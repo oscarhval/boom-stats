@@ -265,34 +265,73 @@ private buildPopularityChart() {
 }
 
 
-  private buildYearChart() {
-    const decades = ['80s','90s','2000s','2010s','2020s'];
-    const buckets: Record<string, number> = { '80s':0,'90s':0,'2000s':0,'2010s':0,'2020s':0 };
-    this.topTracks.forEach(t => {
-      const yr = parseInt(t.album.release_date.slice(0,4),10);
-      const dc = yr<1990 ? '1980s' : yr<2000 ? '1990s' : yr<2010 ? '2000s' : yr<2020 ? '2010s' : '2020s';
-      buckets[dc]++;
-    });
-    const labels = decades;
-    const data = decades.map(d => buckets[d]);
-    const ctx = this.yearCanvas.nativeElement.getContext('2d')!;
-    const grad = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-    grad.addColorStop(0, 'rgba(229,9,20,0.9)');
-    grad.addColorStop(1, 'rgba(20,20,20,0.5)');
-    this.yearChart?.destroy();
-    this.yearChart = new Chart(ctx, {
-      type: 'bar',
-      data: { labels, datasets: [{ label: 'Número de pistas', data, backgroundColor: grad, borderColor: 'rgba(229,9,20,1)', borderWidth: 1, borderRadius: 6, barPercentage: 0.5, maxBarThickness: 24 }] },
-      options: {
-        indexAxis: 'y',
-        maintainAspectRatio: false,
-        responsive: true,
-        plugins: { legend: { display: false }, tooltip: { } },
-        scales: {
-          x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#ccc', stepSize: 5 } },
-          y: { grid: { display: false }, ticks: { color: '#ccc' } }
+private buildYearChart() {
+  const decades = ['80s','90s','2000s','2010s','2020s'];
+  const buckets: Record<string, number> = { '80s':0,'90s':0,'2000s':0,'2010s':0,'2020s':0 };
+  this.topTracks.forEach(t => {
+    const yr = parseInt(t.album.release_date.slice(0,4),10);
+    const dc = yr < 1990 ? '80s' :
+               yr < 2000 ? '90s' :
+               yr < 2010 ? '2000s' :
+               yr < 2020 ? '2010s' :
+                           '2020s';
+    buckets[dc]++;
+  });
+
+  const labels = decades;
+  const data = decades.map(d => buckets[d]);
+  const ctx = this.yearCanvas.nativeElement.getContext('2d')!;
+  const grad = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+  grad.addColorStop(0, 'rgba(229,9,20,0.9)');
+  grad.addColorStop(1, 'rgba(20,20,20,0.5)');
+
+  this.yearChart?.destroy();
+  this.yearChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Número de pistas',
+        data,
+        backgroundColor: grad,
+        borderColor: 'rgba(229,9,20,1)',
+        borderWidth: 1,
+        borderRadius: 6,
+        barPercentage: 0.5,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1a1a',
+          titleColor: '#fff',
+          bodyColor: '#eee',
+          padding: 10,
+          cornerRadius: 6,
+          displayColors: false,
+          callbacks: {
+            title: items => `Década: ${items[0].label}`,
+            label: item => `Pistas: ${item.parsed.x}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255,255,255,0.08)' },
+          ticks: { color: '#ccc', stepSize: 5 }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: '#ccc' }
         }
       }
-    });
-  }
+    }
+  });
+}
 }

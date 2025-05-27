@@ -1,0 +1,92 @@
+<ng-container *ngIf="loading">
+  <div class="overlay-loading">
+    <div class="message-loading">
+      <div class="spinner"></div>
+      <p>Cargando datos…</p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="error">
+  <div class="overlay-error">
+    <div class="message-error">
+      <p>Error al cargar datos.</p>
+    </div>
+  </div>
+</ng-container>
+
+<div class="genre-details">
+
+  <header class="genre-header">
+    <h1 class="genre-title">#{{ genre | titlecase }}</h1>
+    <p class="genre-subtitle">{{ description }}</p>
+    <div class="tags">
+      <button
+        *ngFor="let tag of relatedTags"
+        class="tag-btn"
+        [routerLink]="['/recommendations', tag]"
+      >
+        #{{ tag }}
+      </button>
+    </div>
+  </header>
+
+  <section class="artists-section">
+    <h2 class="section-title">Artistas Top</h2>
+    <div class="cards-grid">
+      <a
+        *ngFor="let artist of artists"
+        class="artist-card"
+        [href]="'https://open.spotify.com/artist/' + artist.id"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="artist-img"
+          [src]="artist.images[0].url || ''"
+          alt="{{ artist.name }}"
+        />
+        <h3 class="card-title">{{ artist.name }}</h3>
+        <p class="card-subtitle">
+          popularidad <strong>{{ artist.popularity }}%</strong>
+        </p>
+      </a>
+    </div>
+  </section>
+
+  <section class="tracks-section" *ngIf="tracks.length">
+    <h2 class="section-title">Pistas Recomendadas</h2>
+    <div class="cards-list">
+      <a
+        *ngFor="let track of tracks"
+        class="track-card"
+        [href]="'https://open.spotify.com/track/' + track.id"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="track-img"
+          [src]="track.album.images[0].url || ''"
+          alt="{{ track.name }}"
+        />
+        <div class="track-details">
+          <h3 class="card-title">{{ track.name }}</h3>
+          <p class="card-subtitle">{{ getArtistNames(track) }}</p>
+        </div>
+        <div class="track-popularity">
+          popularidad <strong>{{ track.popularity }}%</strong>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-legend">
+    <p>
+      <strong>Top Artistas:</strong> muestra los 10 artistas más escuchados actualmente de cada género.
+    </p>
+    <p>
+      <strong>Pistas Recomendadas:</strong> enlaces a las canciones en Spotify, con imagen, título y popularidad.
+    </p>
+  </div>
+
+</div>

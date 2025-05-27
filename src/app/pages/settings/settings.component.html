@@ -1,1 +1,131 @@
-<p>settings works!</p>
+<ng-container *ngIf="user$ | async as user">
+  <section class="settings-page">
+
+    <h1 class="page-title">Configuración</h1>
+
+    <!-- PERFIL -->
+    <div class="card">
+      <h2 class="section-title">Perfil</h2>
+
+      <div class="setting-row">
+
+            <div class="setting-action">
+          <label class="label">Avatar</label>
+          <div class="photo-preview">
+            <img [src]="photoUrl" alt="Avatar" />
+          </div>
+          <input type="file" (change)="onPhotoSelected($event)" />
+        </div>
+        <div class="setting-info">
+          <label class="label">Nombre</label>
+          <input
+            type="text"
+            [(ngModel)]="displayName"
+            class="text-input" />
+        </div>
+    
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info subtle-text">
+          <span>{{ user.email || user.id }}</span>
+        </div>
+      </div>
+
+      <button class="btn save-btn" (click)="saveProfile()">Guardar perfil</button>
+      <button class="btn link-btn danger" (click)="logout()">Cerrar sesión</button>
+    </div>
+
+    <!-- APARIENCIA -->
+    <div class="card">
+      <h2 class="section-title">Apariencia</h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <p class="subtle">Modo oscuro</p>
+        </div>
+        <div class="setting-action">
+          <label class="switch">
+            <input type="checkbox"
+                   [checked]="darkMode"
+                   (change)="toggleDarkMode()" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <p class="subtle">Color de acento</p>
+        </div>
+        <div class="setting-action">
+          <select [(ngModel)]="accentColor" (change)="saveAccentColor()">
+            <option *ngFor="let o of accentOptions" [value]="o.value">
+              {{ o.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <p class="subtle">Tamaño de fuente</p>
+        </div>
+        <div class="setting-action">
+          <select [(ngModel)]="fontSize" (change)="saveFontSize()">
+            <option *ngFor="let f of fontSizeOptions" [value]="f.value">
+              {{ f.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDIOMA & REGIÓN -->
+    <div class="card">
+      <h2 class="section-title">Idioma & Región</h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <p class="subtle">Idioma de la aplicación</p>
+        </div>
+        <div class="setting-action">
+          <select [(ngModel)]="selectedLanguage" (change)="saveLanguage()">
+            <option *ngFor="let lang of languages" [value]="lang.code">
+              {{ lang.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <p class="subtle">Formato de hora</p>
+        </div>
+        <div class="setting-action">
+          <select [(ngModel)]="selectedTimeFormat" (change)="saveTimeFormat()">
+            <option value="24">24 h</option>
+            <option value="12">12 h</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIVACIDAD & DATOS -->
+    <div class="card">
+      <h2 class="section-title">Privacidad & Datos</h2>
+
+      <div class="setting-row">
+        <div class="setting-info subtle-text">
+          <p>Puedes exportar todos tus datos de uso.</p>
+        </div>
+        <div class="setting-action">
+          <button class="btn link-btn" (click)="downloadData()">
+            Descargar mis datos
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</ng-container>

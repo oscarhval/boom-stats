@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class SpotifyAuthService {
   private clientId     = 'fa7643f9baec40748981309a6083b14b';
-  private redirectUri  = 'http://localhost:4200/callback';
+ private redirectUri  = 'http://127.0.0.1:4200/callback';
   private authEndpoint = 'https://accounts.spotify.com/authorize';
   private responseType = 'token';
   private userSubject  = new BehaviorSubject<any>(null);
@@ -29,7 +29,7 @@ export class SpotifyAuthService {
       'user-read-email',
       'user-top-read',
       'user-library-read',
-      'user-read-recently-played'   
+      'user-read-recently-played',
     ].join(' ');
 
     const url =

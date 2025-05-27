@@ -1,0 +1,232 @@
+
+:host {
+  display: block;
+  background: #111;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.overlay-loading {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.message-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transform: translateY(-10px);
+  animation: slideUp 0.3s forwards;
+}
+.spinner {
+  width: 50px; height: 50px;
+  border: 5px solid rgba(255,255,255,0.2);
+  border-top-color: #E50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.message-loading p {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.overlay-error {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.message-error {
+  background: #1e1e1e;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+}
+.message-error p {
+  margin: 0;
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.genre-details {
+  padding: 8rem 8rem 4rem;
+  background: #121212;
+  color: #fff;
+
+  .genre-header {
+    .genre-title {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .genre-subtitle {
+      font-size: 1rem;
+      margin: 0.5rem 0 1.5rem;
+      color: #bbb;
+    }
+    .tags {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      .tag-btn {
+        background: transparent;
+        border: 1px solid #444;
+        color: #ddd;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s, color 0.2s;
+        &:hover {
+          background: #fff;
+          border-color: #555;
+          color: #111;
+          transition: 0.8s;
+        }
+      }
+    }
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+  }
+
+  .artists-section {
+    margin: 2rem 0;
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 2rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.2);
+        border-radius: 3px;
+      }
+
+      .artist-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #1e1e1e;
+        border-radius: 8px;
+        padding: 1.5rem 1rem;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s, box-shadow 0.2s;
+        flex-shrink: 0;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .artist-img {
+          width: 120px; height: 120px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-bottom: 1rem;
+        }
+        .card-title {
+          font-size: 1.125rem;
+          margin: 0.5rem 0;
+        }
+        .card-subtitle {
+          font-size: 0.875rem;
+          color: #aaa;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .tracks-section {
+    margin: 2rem 0;
+
+    .cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .track-card {
+      display: flex;
+      align-items: center;
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      }
+
+      .track-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-right: 1rem;
+        flex-shrink: 0;
+      }
+      .track-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        .card-title {
+          font-size: 1.125rem;
+          margin: 0;
+          color: #fff;
+        }
+        .card-subtitle {
+          font-size: 0.875rem;
+          color: #ccc;
+          margin: 0;
+        }
+      }
+      .track-popularity {
+        font-size: 0.875rem;
+        color: #aaa;
+        margin-left: auto;
+        padding-right: 1rem;
+      }
+    }
+  }
+
+  .section-legend {
+    margin-top: 3.2rem;
+    max-width: 600px;
+    color: #666;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    p { margin: 0.25rem 0; }
+  }
+}
