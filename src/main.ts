@@ -8,7 +8,6 @@ import { AppComponent }                   from './app/app.component';
 import { routes }                         from './app/app.routes';
 import { provideRouter }                  from '@angular/router';
 
-// loader para cargar /assets/i18n/*.json
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }

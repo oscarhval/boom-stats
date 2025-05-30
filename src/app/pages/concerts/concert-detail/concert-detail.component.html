@@ -1,0 +1,33 @@
+<ng-container *ngIf="!loading && concert; else loadingOrError">
+ 
+ 
+  <div class="detail-single">
+    <img class="hero-img" [src]="concert.image" alt="{{ concert.artist }}" />
+    <h1 class="title-white">{{ concert.artist }}</h1>
+
+    <ng-container *ngIf="concert.date && isValidDate(concert.date); else sinFecha">
+      <p class="subtitle-white">
+        {{ concert.date | date:'fullDate' }} · {{ concert.venue }}
+      </p>
+    </ng-container>
+    <ng-template #sinFecha>
+      <p class="subtitle-white">
+        Fecha desconocida · {{ concert.venue }}
+      </p>
+    </ng-template>
+
+    <h2 class="subtitle-white">Ubicación</h2>
+    <div class="map-container" [innerHTML]="trustedMapHtml"></div>
+<div class="actions">
+    <button class="center-back" (click)="goBack()">Volver a conciertos</button>
+
+  <button class="center-red" (click)="onPurchase()">Comprar entradas</button>
+</div>
+  
+  </div>
+</ng-container>
+
+<ng-template #loadingOrError>
+  <div *ngIf="loading" class="loading">Cargando detalle…</div>
+  <div *ngIf="error"   class="error">{{ error }}</div>
+</ng-template>

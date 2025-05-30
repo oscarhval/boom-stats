@@ -1,1 +1,89 @@
-<p>concerts works!</p>
+<ng-container *ngIf="loadingPersonal">
+  <div class="overlay overlay-loading">
+    <div class="message message-loading">
+      <div class="spinner"></div>
+      <p>Cargando conciertos…</p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="errorPersonal">
+  <div class="error-container">
+    <p>{{ errorPersonal }}</p>
+  </div>
+</ng-container>
+
+<div *ngIf="!loadingPersonal && !errorPersonal" class="concerts-container">
+  <h2>Conciertos de tu top artistas</h2>
+
+  <div *ngFor="let c of personalized" class="concert-card">
+    <div class="card-image">
+      <img [src]="c.image" alt="{{ c.artist }} poster" />
+    </div>
+    <div class="card-body">
+      <h3 class="artist">{{ c.artist }}</h3>
+
+      <ng-container *ngIf="isValidDate(c.date); else noDatePersonal">
+        <p class="date">{{ c.date | date:'mediumDate' }}</p>
+      </ng-container>
+      <ng-template #noDatePersonal>
+        <p class="date">Fecha desconocida</p>
+      </ng-template>
+
+      <p class="venue">{{ c.venue || 'Desconocido' }}</p>
+
+      <a class="buy-button" [routerLink]="['/concerts', c.id]">
+        Entradas
+      </a>
+    </div>
+  </div>
+
+  <p *ngIf="personalized.length === 0" class="no-concerts">
+    No hay conciertos personalizados disponibles.
+  </p>
+</div>
+
+<ng-container *ngIf="loadingGlobal">
+  <div class="overlay overlay-loading">
+    <div class="message message-loading">
+      <div class="spinner"></div>
+      <p>Cargando conciertos…</p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="errorGlobal">
+  <div class="error-container">
+    <p>{{ errorGlobal }}</p>
+  </div>
+</ng-container>
+
+<div *ngIf="!loadingGlobal && !errorGlobal" class="concerts-container">
+  <h2>Conciertos recomendados globales</h2>
+
+  <div *ngFor="let c of global" class="concert-card">
+    <div class="card-image">
+      <img [src]="c.image" alt="{{ c.artist }} poster" />
+    </div>
+    <div class="card-body">
+      <h3 class="artist">{{ c.artist }}</h3>
+
+      <ng-container *ngIf="isValidDate(c.date); else noDateGlobal">
+        <p class="date">{{ c.date | date:'mediumDate' }}</p>
+      </ng-container>
+      <ng-template #noDateGlobal>
+        <p class="date">Fecha desconocida</p>
+      </ng-template>
+
+      <p class="venue">{{ c.venue || 'Desconocido' }}</p>
+
+      <a class="buy-button" [routerLink]="['/concerts', c.id]">
+        Entradas
+      </a>
+    </div>
+  </div>
+
+  <p *ngIf="global.length === 0" class="no-concerts">
+    No hay conciertos recomendados disponibles.
+  </p>
+</div>

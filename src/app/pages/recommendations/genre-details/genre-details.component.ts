@@ -91,11 +91,9 @@ export class GenreDetailsComponent implements OnInit {
     }).pipe(
       tap(({ seeds, artists }) => {
         this.artists = artists;
-        // seleccionamos los primeros 3 seeds válidos
         let tags = seeds
           .filter(g => g !== this.genre && this.allGenres.includes(g))
           .slice(0, 3);
-        // si faltan, rellenamos desde allGenres
         if (tags.length < 3) {
           const extras = this.allGenres
             .filter(g => g !== this.genre && !tags.includes(g))

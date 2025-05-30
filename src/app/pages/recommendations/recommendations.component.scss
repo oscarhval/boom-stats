@@ -6,7 +6,6 @@
   position: relative;
 }
 
-/* --- Capa de bloqueo al cargar --- */
 .overlay-loading {
   position: fixed !important;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -17,13 +16,11 @@
   justify-content: center;
   pointer-events: all;
 
-  /* Footer oculto mientras exista esta capa */
   ~ footer {
     display: none !important;
   }
 }
 
-/* Mensaje de carga */
 .message {
   display: flex;
   flex-direction: column;
@@ -54,7 +51,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Contenido principal --- */
 .recommendations {
   padding: 8rem 8rem 4rem;
 }
@@ -76,7 +72,6 @@
   }
 }
 
-/* --- Grid de géneros --- */
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -100,7 +95,6 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.4);
   }
 
-  /* capa oscura inicial */
   .overlay {
     position: absolute;
     inset: 0;
@@ -108,7 +102,6 @@
     transition: background .2s;
   }
 
-  /* al hover, aclaramos la capa */
   &:hover .overlay {
     background: rgba(0,0,0,0.1);
   }
@@ -125,7 +118,6 @@
   }
 }
 
-/* Layout específico de las 14 cards */
 .card:nth-child(1)  { grid-column: 1 / span 2; grid-row: 1 / span 2; }
 .card:nth-child(2)  { grid-column: 3;           grid-row: 1; }
 .card:nth-child(3)  { grid-column: 4;           grid-row: 1; }
@@ -141,7 +133,6 @@
 .card:nth-child(13) { grid-column: 2;           grid-row: 4; }
 .card:nth-child(14) { grid-column: 3;           grid-row: 4; }
 
-/* --- Favorites / Pistas --- */
 .favorites {
   margin-bottom: 3rem;
 

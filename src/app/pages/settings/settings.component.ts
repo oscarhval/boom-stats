@@ -101,11 +101,6 @@ export class SettingsComponent implements OnInit {
     window.location.reload();
   }
 
-  saveTimeFormat() {
-    localStorage.setItem('timeFormat', this.selectedTimeFormat);
-    alert('Formato de hora guardado');
-  }
-
   downloadData() {
     window.open('/api/user/export', '_blank');
   }

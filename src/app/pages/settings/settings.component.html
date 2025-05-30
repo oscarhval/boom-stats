@@ -3,7 +3,6 @@
 
     <h1 class="page-title">Configuración</h1>
 
-    <!-- PERFIL -->
     <div class="card">
       <h2 class="section-title">Perfil</h2>
 
@@ -36,7 +35,6 @@
       <button class="btn link-btn danger" (click)="logout()">Cerrar sesión</button>
     </div>
 
-    <!-- APARIENCIA -->
     <div class="card">
       <h2 class="section-title">Apariencia</h2>
 
@@ -56,7 +54,7 @@
 
       <div class="setting-row">
         <div class="setting-info">
-          <p class="subtle">Color de acento</p>
+          <p class="subtle">Tema</p>
         </div>
         <div class="setting-action">
           <select [(ngModel)]="accentColor" (change)="saveAccentColor()">
@@ -81,7 +79,6 @@
       </div>
     </div>
 
-    <!-- IDIOMA & REGIÓN -->
     <div class="card">
       <h2 class="section-title">Idioma & Región</h2>
 
@@ -98,20 +95,9 @@
         </div>
       </div>
 
-      <div class="setting-row">
-        <div class="setting-info">
-          <p class="subtle">Formato de hora</p>
-        </div>
-        <div class="setting-action">
-          <select [(ngModel)]="selectedTimeFormat" (change)="saveTimeFormat()">
-            <option value="24">24 h</option>
-            <option value="12">12 h</option>
-          </select>
-        </div>
-      </div>
+
     </div>
 
-    <!-- PRIVACIDAD & DATOS -->
     <div class="card">
       <h2 class="section-title">Privacidad & Datos</h2>
 

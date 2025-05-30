@@ -1,19 +1,18 @@
 <section class="hero">
-
-    <div class="hero-overlay">
-      <div class="hero-content-wrapper">
-        <h1 class="hero-title">
-          <span>Tu playlist,</span><br>
-          <span class="hero-title--faded">tus números,</span><br>
-          <span class="hero-title--strong">tus conciertos.</span>
-        </h1>
-        <p class="hero-subtitle">
-          Entra en una nueva dimensión musical obteniendo información única sobre tus gustos musicales.
-        </p>
-        <a (click)="onLogin()" class="hero-cta-link">Comenzar ›</a>
-      </div>
+  <div class="hero-overlay">
+    <div class="hero-content-wrapper">
+      <h1 class="hero-title">
+        <span>Tu playlist,</span><br>
+        <span class="hero-title--faded">tus números,</span><br>
+        <span class="hero-title--strong">tus conciertos.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Entra en una nueva dimensión musical obteniendo información única sobre tus gustos musicales.
+      </p>
+      <a (click)="onLogin()" class="hero-cta-link">Comenzar ›</a>
     </div>
-  
+  </div>
+
   <video
     #bgvid
     class="hero-video"
@@ -31,33 +30,161 @@
 <main class="home-content">
 
 
-  <section class="highlight-dark">
-    <div class="wrapper">
 
 
+
+
+<section class="highlight-dark">
+  <div class="wrapper highlight-dark-2cols">
+
+
+    <div class="highlight-content">
+      <div class="stats-feature wrapper">
+        
+        <div class="how-it-works">
+          <h2>¿Cómo funciona BoomStats?</h2>
+          <p>
+            Conecta tu cuenta de Spotify de forma segura y en segundos BoomStats extrae tus métricas musicales:
+            número de seguidores, pistas guardadas, artistas favoritos y mucho más.
+          </p>
+          <p>
+            Analiza tus hábitos de escucha, descubre tendencias personalizadas y recibe recomendaciones musicales
+            basadas en tu propio historial. Además, planifica tu próxima experiencia en directo viendo los conciertos
+            que mejor encajen con tus gustos.
+          </p>
+        </div>
+
+  
+<section class="live-stats">
+  <div class="wrapper">
+    <ng-container *ngIf="stats$ | async as s; else loadingLiveStats">
+      <div class="live-stats-grid">
+        <div class="live-stat-card">
+         <div class="number">{{ s.tracks | number }}</div>
+          <div class="label">Pistas guardadas</div>
+        </div>
+    
+        <div class="live-stat-card">
+          <div class="number">{{ s.topTracksCount | number }}</div>
+          <div class="label">Canciones top</div>
+        </div>
+        <div class="live-stat-card">
+          <div class="number">{{ s.topArtistsCount | number }}</div>
+          <div class="label">Artistas top</div>
+        </div>
+
+            <div class="live-stat-card">
+          <div class="number">{{ s.albums | number }}</div>
+          <div class="label">Álbumes guardados</div>
+        </div>
+        <div class="live-stat-card">
+          <div class="number">{{ s.artists | number }}</div>
+          <div class="label">Artistas seguidos</div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #loadingLiveStats>
+      <p class="loading">Inicia sesión para ver tus estadísticas de Spotify…</p>
+    </ng-template>
+  </div>
+</section>
+
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="highlight-light">
-    <div class="wrapper">
 
-      
+<section class="highlight-light">
+  <div class="wrapper highlight-blocks">
+
+    <!-- Bloque 1: Panel de métricas -->
+    <div class="feature-block">
+      <div class="feature-text">
+        <h2>Visión clara de tus métricas</h2>
+        <p>
+          Consulta en un solo vistazo tus minutos totales de escucha, 
+          tus artistas y álbumes favoritos, y la evolución de tus hábitos 
+          musicales a lo largo del tiempo con gráficos intuitivos.
+        </p>
+      </div>
+      <div class="feature-images">
+        <img src="assets/img/1.png" alt="Gráfico de evolución semanal">
+      </div>
     </div>
-  </section>
 
-  <section class="stats-cards">
-    <div class="wrapper">
-      <div class="stat-card placeholder"></div>
-      <div class="stat-card placeholder"></div>
-      <div class="stat-card placeholder"></div>
-      <div class="stat-card placeholder"></div>
-      <div class="stat-card placeholder"></div>
+    <div class="feature-block reverse">
+      <div class="feature-images">
+        <img src="assets/img/2.jpg" alt="Listado de conciertos por artista">
+      </div>
+      <div class="feature-text">
+        <h2>Conciertos y recomendaciones</h2>
+        <p>
+          Basándonos en tus artistas top, BoomStats te muestra los próximos 
+          conciertos y te sugiere nuevas canciones y artistas 
+          para ampliar tu repertorio musical.
+        </p>
+      </div>
     </div>
-  </section>
 
-  <section class="cta">
-    <div class="wrapper">
-      <div class="cta-box placeholder-box"></div>
+  </div>
+</section>
+
+
+
+
+
+<section class="stats-cards">
+  <div class="wrapper">
+    <div class="stat-card">
+      <div class="icon">
+        <img src="assets/img/statistics.svg" alt="Estadísticas">
+      </div>
+      <div class="label">Visualiza tus estadísticas</div>
     </div>
-  </section>
+    <div class="stat-card">
+      <div class="icon">
+        <img src="assets/img/trophy.svg" alt="Top">
+      </div>
+      <div class="label">Revive tus top canciones</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">
+        <img src="assets/img/music-note.svg" alt="Música">
+      </div>
+      <div class="label">Descubre nuevos géneros</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">
+        <img src="assets/img/concert.svg" alt="Conciertos">
+      </div>
+      <div class="label">Planifica tus conciertos</div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="cta">
+  <div class="wrapper">
+    <div class="cta-box">
+      <h2>¡Muy pronto en Android e iOS!</h2>
+      <p class="sub">
+   Sé de los primeros en usar BoomStats para móvil</p>
+      <div class="buttons">
+        <a  class="btn-store disabled">
+          <img src="assets/img/google-play-badge.png" alt="Google Play">
+        </a>
+        <a  class="btn-store disabled">
+          <img src="assets/img/app-store-badge.png" alt="App Store">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 </main>
