@@ -233,3 +233,134 @@
     p { margin: 0.25rem 0; }
   }
 }
+
+
+@media (max-width: 1200px) {
+  .genre-details {
+    padding: 6rem 4rem 2rem;
+  }
+  .genre-details .genre-header .genre-title {
+    font-size: 2.5rem;
+  }
+  .genre-details .genre-header .genre-subtitle {
+    font-size: 0.9rem;
+  }
+  .genre-details .artists-section .cards-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .genre-details {
+    padding: 4rem 2rem 1rem;
+  }
+  .genre-details .genre-header .genre-title {
+    font-size: 2rem;
+  }
+  .genre-details .genre-header .genre-subtitle {
+    font-size: 0.85rem;
+  }
+  .genre-details .genre-header .tags {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .genre-details .genre-header .tag-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  .genre-details .artists-section .cards-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+  .genre-details .artists-section .artist-card {
+    height: 240px;
+    padding: 1rem;
+  }
+  .genre-details .artists-section .artist-card .artist-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0.75rem;
+  }
+  .genre-details .artists-section .artist-card .card-title {
+    font-size: 1rem;
+  }
+  .genre-details .artists-section .artist-card .card-subtitle {
+    font-size: 0.8rem;
+  }
+  .genre-details .tracks-section .track-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+  .genre-details .tracks-section .track-card .track-img {
+    width: 60px;
+    height: 60px;
+    margin-right: 0;
+  }
+  .genre-details .tracks-section .track-card .track-details .card-title {
+    font-size: 1rem;
+  }
+  .genre-details .tracks-section .track-card .track-details .card-subtitle {
+    font-size: 0.8rem;
+  }
+  .genre-details .tracks-section .track-card .track-popularity {
+    font-size: 0.8rem;
+    padding-right: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .genre-details {
+    padding: 3rem 1rem 1rem;
+  }
+  .genre-details .genre-header .genre-title {
+    font-size: 1.75rem;
+  }
+  .genre-details .genre-header .genre-subtitle {
+    font-size: 0.8rem;
+  }
+  .genre-details .genre-header .tags {
+    gap: 0.25rem;
+  }
+  .genre-details .genre-header .tag-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  .genre-details .artists-section .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .genre-details .artists-section .artist-card {
+    height: 200px;
+    padding: 0.75rem;
+  }
+  .genre-details .artists-section .artist-card .artist-img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.5rem;
+  }
+  .genre-details .artists-section .artist-card .card-title {
+    font-size: 0.9rem;
+  }
+  .genre-details .artists-section .artist-card .card-subtitle {
+    font-size: 0.75rem;
+  }
+  .genre-details .tracks-section .track-card {
+    padding: 0.5rem;
+  }
+  .genre-details .tracks-section .track-card .track-img {
+    width: 50px;
+    height: 50px;
+  }
+  .genre-details .tracks-section .track-card .track-details .card-title {
+    font-size: 0.9rem;
+  }
+  .genre-details .tracks-section .track-card .track-details .card-subtitle {
+    font-size: 0.75rem;
+  }
+  .genre-details .tracks-section .track-card .track-popularity {
+    display: none;
+  }
+}

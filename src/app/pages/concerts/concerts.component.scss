@@ -154,3 +154,41 @@
   color: #aaa;
   margin-top: 1rem;
 }
+
+
+@media (max-width: 900px) {
+  .concerts-container {
+    padding: 6rem 4rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .concerts-container {
+    padding: 4rem 2rem 1rem;
+  }
+  .concert-card .card-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .concert-card .card-image {
+    height: 150px;
+  }
+  .concert-card .card-body {
+    padding: 0.75rem;
+  }
+  .concert-card .artist {
+    font-size: 1.2rem;
+  }
+  .concert-card .date,
+  .concert-card .venue {
+    font-size: 1rem;
+  }
+  .concert-card .buy-button {
+    width: 100%;
+    margin: 0.75rem auto 0;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}

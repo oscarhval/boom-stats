@@ -165,3 +165,103 @@
     }
   }
 }
+
+
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 4rem 2rem 2rem;
+  }
+  .settings-page .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .settings-page .text-input,
+  .settings-page select {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  .settings-page .card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .settings-page .card .section-title {
+    font-size: 1.1rem;
+  }
+  .settings-page .setting-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+  }
+  .settings-page .setting-row .setting-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .settings-page .setting-row .setting-action {
+    justify-content: flex-start;
+  }
+  .settings-page .setting-row input[type="file"]::-webkit-file-upload-button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  .settings-page .setting-row .photo-preview {
+    width: 40px;
+    height: 40px;
+  }
+  .settings-page .setting-row .switch {
+    width: 36px;
+    height: 18px;
+  }
+  .settings-page .setting-row .switch .slider::before {
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-page {
+    padding: 3rem 1rem 1rem;
+  }
+  .settings-page .page-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .settings-page .text-input,
+  .settings-page select {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+  .settings-page .card {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  .settings-page .card .section-title {
+    font-size: 1rem;
+  }
+  .settings-page .setting-row {
+    padding: 0.5rem 0;
+  }
+  .settings-page .setting-row .setting-info {
+    gap: 0.5rem;
+  }
+  .settings-page .setting-row .setting-action {
+    gap: 0.5rem;
+  }
+  .settings-page .setting-row input[type="file"]::-webkit-file-upload-button {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  .settings-page .setting-row .photo-preview {
+    width: 32px;
+    height: 32px;
+  }
+  .settings-page .setting-row .switch {
+    width: 32px;
+    height: 16px;
+  }
+  .settings-page .setting-row .switch .slider::before {
+    width: 12px;
+    height: 12px;
+  }
+}
