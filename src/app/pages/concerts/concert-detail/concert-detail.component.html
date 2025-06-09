@@ -1,7 +1,6 @@
 <ng-container *ngIf="!loading && concert; else loadingOrError">
- 
- 
   <div class="detail-single">
+
     <img class="hero-img" [src]="concert.image" alt="{{ concert.artist }}" />
     <h1 class="title-white">{{ concert.artist }}</h1>
 
@@ -18,16 +17,63 @@
 
     <h2 class="subtitle-white">Ubicación</h2>
     <div class="map-container" [innerHTML]="trustedMapHtml"></div>
-<div class="actions">
-    <button class="center-back" (click)="goBack()">Volver a conciertos</button>
 
-  <button class="center-red" (click)="onPurchase()">Comprar entradas</button>
-</div>
-  
+    <section class="travel-section">
+      <h2 class="subtitle-white">Cómo llegar</h2>
+
+      <div *ngIf="!locationResolved" class="travel-prompt">
+        <p class="text-white">
+          Para ofrecerte las mejores opciones de transporte, necesitamos tu ubicación.
+        </p>
+        <button (click)="askUserLocation()" class="btn-permiso">
+          Obtener mi ubicación
+        </button>
+        <p class="text-white">O ingresa tu ciudad manualmente:</p>
+        <form (ngSubmit)="generateTransportOptions()" #manualForm="ngForm" class="form-manual">
+          <input
+            type="text"
+            name="origin"
+            [(ngModel)]="transportOrigin"
+            placeholder="Ej. Madrid"
+            required
+            class="input-origin"
+          />
+          <button type="submit" [disabled]="manualForm.invalid" class="btn-generate">
+            Buscar ruta
+          </button>
+        </form>
+      </div>
+
+      <div *ngIf="locationResolved || transportLinks.length" class="transport-results">
+        <ul class="transport-list">
+          <li *ngFor="let link of transportLinks" class="transport-item">
+            <div class="transport-left">
+              <a [href]="link.url" target="_blank" rel="noopener" class="transport-link">
+                {{ link.label }}
+              </a>
+            </div>
+            <div class="transport-right" *ngIf="link.subtitle">
+              {{ link.subtitle }}
+            </div>
+          </li>
+        </ul>
+
+        <div class="change-location">
+          <button class="btn-back-location" (click)="resetTransport()">Cambiar ubicación</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="center-back" (click)="goBack()">Volver a conciertos</button>
+      <button class="center-red" (click)="onPurchase()">Comprar entradas</button>
+    </div>
+
   </div>
 </ng-container>
 
 <ng-template #loadingOrError>
   <div *ngIf="loading" class="loading">Cargando detalle…</div>
-  <div *ngIf="error"   class="error">{{ error }}</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 </ng-template>
+

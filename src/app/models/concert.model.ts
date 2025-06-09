@@ -14,4 +14,6 @@ export interface Concert {
   image: string;
   ticketUrl: string;
   priceRanges: PriceRange[];
+  latitude?: number;
+  longitude?: number;
 }
